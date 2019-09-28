@@ -4,8 +4,10 @@ const artistController = require('../controller/artist');
 const router = express.Router();
 
 
-router.get('/artists', artistController.list);
-router.get('/artists/artistId', artistController.find);
+router.post('/', artistController.create);
+router.get('/', artistController.list);
+router.get('/:artistId', artistController.find);
+router.patch('/:artistId', artistController.update);
 
 
 module.exports = router;
