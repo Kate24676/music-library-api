@@ -24,7 +24,7 @@ describe('/albums', () => {
   });
 
   describe('POST /artists/:artistId/albums', () => {
-    xit('creates a new album for a given artist', (done) => {
+    it('creates a new album for a given artist', (done) => {
       chai.request(server)
         .post(`/artists/${artist._id}/albums`)
         .send({
@@ -40,9 +40,9 @@ describe('/albums', () => {
             expect(album.name).to.equal('InnerSpeaker');
             expect(album.year).to.equal(2010);
             expect(album.artist).to.eql(artist._id);
-            done();
           });
         });
+      done();
     });
 
     xit('returns a 404 and does not create an album if the artist does not exist', (done) => {

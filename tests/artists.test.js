@@ -78,7 +78,7 @@ describe('/artists', () => {
         done();
       });
 
-      xit('returns a 404 if the artist does not exist', done => {
+      it('returns a 404 if the artist does not exist', done => {
         chai
           .request(server)
           .get('/artists/12345')
@@ -107,8 +107,26 @@ describe('/artists', () => {
           });
         done();
       });
+    });
 
-      xit('returns a 404 if the artist does not exist', done => {
+    describe('PATCH /artists/:artistId', () => {
+      it('updates artist record by id', done => {
+        const artist = artists[0];
+        chai
+          .request(server)
+          .patch(`/artists/${artist._id}`)
+          .send({ name: 'Rihanna' })
+          .end((err, res) => {
+            expect(err).to.equal(null);
+            expect(res.status).to.equal(200);
+            Artist.findById(artist._id, (err, updatedArtist) => {
+              expect(updatedArtist.name).to.equal('Rihanna');
+            });
+          });
+        done();
+      });
+
+      it('returns a 404 if the artist does not exist', done => {
         chai
           .request(server)
           .patch('/artists/12345')
@@ -123,7 +141,7 @@ describe('/artists', () => {
     });
 
     describe('DELETE /artists/:artistId', () => {
-      xit('deletes artist record by id', done => {
+      it('deletes artist record by id', done => {
         const artist = artists[0];
         chai
           .request(server)
@@ -139,7 +157,7 @@ describe('/artists', () => {
         done();
       });
 
-      xit('returns a 404 if the artist does not exist', done => {
+      it('returns a 404 if the artist does not exist', done => {
         chai
           .request(server)
           .delete('/artists/12345')
